@@ -63,8 +63,8 @@ func decodeShotenLinkRequest(ctx context.Context, r *http.Request) (interface{},
 }
 
 func decodeGetLinkRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	return transport.RedirectReqest{
-		ShortURL: chi.URLParam(r, "link_id"),
+	return transport.GetReqest{
+		ID: chi.URLParam(r, "link_id"),
 	}, nil
 }
 

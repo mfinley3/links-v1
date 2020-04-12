@@ -37,12 +37,12 @@ func ShortenLink(ls link.Service) endpoint.Endpoint {
 
 func GetLink(ls link.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(transport.RedirectReqest)
+		req := request.(transport.GetReqest)
 		if ok := req.Validate(); !ok {
 			return nil, ErrInvalidID
 		}
 
-		link, err := ls.Find(ctx, req.ShortURL)
+		link, err := ls.Find(ctx, req.ID)
 		if err != nil {
 			return nil, err
 		}

@@ -12,7 +12,7 @@ type ShortenReqest struct {
 }
 
 type GetReqest struct {
-	id string
+	ID string
 }
 
 type RedirectReqest struct {
@@ -28,7 +28,7 @@ func (r ShortenReqest) Validate() bool {
 }
 
 func (r GetReqest) Validate() bool {
-	_, err := uuid.Parse(r.id)
+	_, err := uuid.Parse(r.ID)
 	if err != nil {
 		return false
 	}
