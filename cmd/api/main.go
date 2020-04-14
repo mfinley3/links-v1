@@ -1,14 +1,12 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
-	"regexp"
 	"syscall"
 	"time"
 
@@ -22,29 +20,6 @@ import (
 	links "github.com/mfinley3/links-v1/internal/links/service"
 	transportHTTP "github.com/mfinley3/links-v1/internal/links/transport/http"
 )
-
-type bufWriter struct {
-	buf bytes.Buffer
-}
-
-func (w *bufWriter) Write(bp influxdb.BatchPoints) error {
-	for _, p := range bp.Points() {
-		fmt.Fprintf(&w.buf, p.String()+"\n")
-	}
-	return nil
-}
-
-func extractAndPrintMessage(expected []string, msg string) error {
-	for _, pattern := range expected {
-		re := regexp.MustCompile(pattern)
-		match := re.FindStringSubmatch(msg)
-		if len(match) != 2 {
-			return fmt.Errorf("pattern not found! {%s} [%s]: %v\n", pattern, msg, match)
-		}
-		fmt.Println(match[1])
-	}
-	return nil
-}
 
 func main() {
 
